@@ -1,32 +1,72 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+    margin: 0;
+    padding: 0;
+}
+input {
+    outline: none;
+}
+/*让所有斜体不倾斜*/
+em,
+i {
+    font-style: normal;
+}
+/*去掉列表前的小点*/
+li {
+    list-style: none;
+}
+/*图片没有边框 去掉图片底侧的空白缝隙*/
+img {
+    border: 0;
+    vertical-align: middle;
+}
+/*让button按钮 变成小手*/
+button {
+    cursor: pointer;
+}
+/*去掉链接的下划线*/
+a {
+    color: #666;
+    text-decoration: none;
 }
 
-#nav {
-  padding: 30px;
+a:hover{
+    color: #e33333;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+button,
+input {
+    font-family: 'Microsoft YaHei', 'Heiti SC', tahoma, arial, 'Hiragino Sans GB'
+        , \\5B8B\4F53, sans-serif;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+body {
+    background-color: #fff;
+    font: 12px/1.5 'Microsoft YaHei', 'Heiti SC', tahoma, arial, 'Hiragino SansGB',
+        \\5B8B\4F53, sans-serif;
+    color: #666;
+}
+
+.hide,
+.none {
+    display: none;
+}
+/*清除浮动*/
+.clearfix:after {
+    visibility: hidden;
+    clear: both;
+    display: block;
+    content: ".";
+    height: 0; 
+}
+
+.clearfix {
+    *zoom: 1;
 }
 </style>

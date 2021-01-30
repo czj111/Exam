@@ -9,9 +9,9 @@
           </div>
           <div class="btmLine">
             <div class="btnLogin" id="btnLogin" @click="loginFace">登录</div>
-            <div class="btnRegist" id="btnRegist">注册</div>
+            <div class="btnRegist" id="btnRegist" @click="registerFace">注册</div>
           </div>
-          <div id="ucShadow" v-show="loginShow || registerShow"></div>
+          <div id="ucShadow" v-show="loginShow"></div>
           <Login v-show="loginShow" @closeLogin="closeLogin" />
         </div>
       </div>
@@ -28,7 +28,6 @@
     data() {
       return {
         loginShow: false,
-        registerShow: false
       }
     },
     methods: {
@@ -37,6 +36,9 @@
       },
       closeLogin:function(close:boolean){
         this.loginShow=close;
+      },
+      registerFace:function(){
+        this.$router.push("/Register");
       }
     },
     components: {

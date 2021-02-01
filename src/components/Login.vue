@@ -19,7 +19,7 @@
                 <span class="refresh glyphicon glyphicon-repeat" id="checkRefresh"></span>
             </div>
             <div class="btn_box">
-                <input type="submit" value="登录" id="submit">
+                <input type="submit" value="登录" id="submit" @click="login">
             </div>
         </div>
         <span id="close" class="glyphicon glyphicon-remove-sign" @click="close"></span>
@@ -47,6 +47,12 @@
             focus:function(e:any){
                 let element=e.target;
                 element.className='';
+            },
+            login:function(){
+                let sucess=true;
+                if(sucess){
+                    this.$router.push("/User")
+                }
             }
         },
         data(){

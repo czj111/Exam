@@ -15,7 +15,14 @@ router.beforeEach((to, from, next) =>{
     if(to.matched.length===0){
       next('/404');
     }else{
-      next();
+      if(store.getters.token){
+        next();
+      }
+      else if(to.name==="Home"){
+        next()
+      }else{
+        next('/Login');
+      }
     }
 })
 

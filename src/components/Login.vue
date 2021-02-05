@@ -3,26 +3,26 @@
         <div id="ucLoginBody">
             <div id="errorMsg">{{errorMsg}}</div>
             <div class="item username">
-                <input type="text" name="username" placeholder="请输入用户名" id="username" v-model="username"
+                <input type="text" name="username" placeholder="请输入用户名" id="username" v-model="info.username"
                     @blur="checkEmpty" @focus="focus">
-                <span class="username_logo glyphicon glyphicon-user"></span>
+                <span class="username_logo"></span>
             </div>
             <div class="item password">
-                <input type="password" name="password" placeholder="请输入密码" id="password" v-model="password"
+                <input type="password" name="password" placeholder="请输入密码" id="password" v-model="info.password"
                     @blur="checkEmpty" @focus="focus">
-                <span class="password_logo glyphicon glyphicon-lock"></span>
+                <span class="password_logo"></span>
             </div>
             <div class="item identify">
-                <input name="checkCode" id="check" v-model="check" @blur="checkEmpty" @focus="focus">
+                <input name="checkCode" id="check" v-model="info.check" @blur="checkEmpty" @focus="focus">
                 <img src="checkCode" id="checkCode">
                 <span class="checkCode_logo"></span>
-                <span class="refresh glyphicon glyphicon-repeat" id="checkRefresh"></span>
+                <span class="refresh" id="checkRefresh"></span>
             </div>
             <div class="btn_box">
                 <input type="submit" value="登录" id="submit" @click="login">
             </div>
         </div>
-        <span id="close" class="glyphicon glyphicon-remove-sign" @click="close"></span>
+        <span id="close" class="" @click="close"></span>
     </div>
 </template>
 
@@ -40,7 +40,6 @@
             checkEmpty:function(e:any){
                 let element=e.target;
                 if(isEmpty(element.value)){
-                    console.log(element);
                     element.className='error';
                 }
             },
@@ -57,9 +56,11 @@
         },
         data(){
             return {
-                username:'',
-                password:'',
-                check:'',
+                info:{
+                    username:'',
+                    password:'',
+                    check:''
+                },
                 errorMsg:''
             }
         },

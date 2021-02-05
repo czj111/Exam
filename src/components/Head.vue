@@ -2,7 +2,7 @@
     <header id="header">
         <div class="logo"></div>
         <div class="time">
-            <span class="time-logo glyphicon glyphicon-time"></span>
+            <span class="time-logo"></span>
             <span class="nowTime">
                 <i id="time-ym">{{"星期"+time[date.getDay()]+date.getFullYear()+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日"}}</i>
                 <i id="time-ms">{{times}}</i>
@@ -12,7 +12,7 @@
             <div id="hover-login" @mouseenter="enter" @mouseleave="leave">
                 <span id="username_login">{{username}}</span>
                 <div id="dropdown-login" v-show="show">
-                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span class=""></span>
                     <a href="javascript:exit();">退出</a>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <form id="loginForm">
+    <div id="loginForm">
       <div id="top">
         <div>
           <div class="topLine">
@@ -15,7 +15,7 @@
           <Login v-show="loginShow" @closeLogin="closeLogin" />
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 

@@ -10,9 +10,9 @@
         </div>
         <div class="login">
             <div id="hover-login" @mouseenter="enter" @mouseleave="leave">
+                <span class="icon_user"></span>
                 <span id="username_login">{{username}}</span>
                 <div id="dropdown-login" v-show="show">
-                    <span class=""></span>
                     <a href="javascript:exit();">退出</a>
                 </div>
             </div>
@@ -93,7 +93,7 @@ export default Vue.extend({
 }
 
 #header .time .nowTime {
-    width: 413px;
+    width: 450px;
     height: 44px;
     line-height: 44px;
     font-size: 0px;
@@ -115,9 +115,8 @@ export default Vue.extend({
     margin-left: 32px;
 }
 #username_login {
-    position: absolute;
     top: 21px;
-    right: 9px;
+    left: 90px;
     cursor: pointer;
 }
 #dropdown-login
@@ -130,7 +129,9 @@ export default Vue.extend({
     border: 1px solid #a6a6a6;
     background-color: #ffffff;
 }
-#dropdown-login span {
+.icon_user {
+    top:21px;
+    left:50px;
     width: 39px;
     height: 39px;
     /*background-color: black;*/
@@ -144,6 +145,9 @@ export default Vue.extend({
 }
 #hover-login {
     display: inline-block;
+}
+#hover-login span{
+    position: absolute;
 }
 
 </style>

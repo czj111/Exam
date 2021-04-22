@@ -1,35 +1,82 @@
 <template>
+<div>
     <div id="content_left">
-	<div class="function_banner">
+		<div class="function_banner">
 		<ul id="function_content">
 			<li>
-				<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-				<a href="javascript:void(0)">试卷库</a>
+				<span class="el-icon-download" aria-hidden="true"></span>
+				<router-link to="/User/downLoad/1">试卷库</router-link>
 			</li>
 			<li>
-				<span class="glyphicon glyphicon-pencil"></span>
-				<a href="javascript:void(0)">考试</a>
+				<span class="el-icon-document"></span>
+				<router-link to="/User/exam">考试</router-link>
 			</li>
 			<li>
-				<span class="glyphicon glyphicon-check"></span>
-				<a href="javascript:void(0)">成绩</a>
+				<span class="el-icon-data-line"></span>
+				<router-link to="/User/showScore">成绩</router-link>
+				<!-- <a href="javascript:void(0)">成绩</a> -->
 			</li>
 			<li>
-				<span class="glyphicon glyphicon-check"></span>
-				<a href="javascript:void(0)">论坛</a>
+				<span class="el-icon-s-comment"></span>
+				<router-link to="/User/exam">论坛</router-link>
+				<!-- <a href="javascript:void(0)">论坛</a> -->
 			</li>
 			<li>
-				<span class="glyphicon glyphicon-check"></span>
-				<a href="javascript:void(0)">错题集</a>
+				<span class="el-icon-star-off"></span>
+				<router-link to="/User/exam">错题集</router-link>
+				<!-- <a href="javascript:void(0)">错题集</a> -->
 			</li>
 		</ul>
+		</div>
+	</div>
+    <div class="content_right">
+		<router-view></router-view>
 	</div>
 </div>
 </template>
 <script>
-export default {
-    
-}
+import Vue from "vue"
+
+export default Vue.extend({
+	data(){
+		return {
+			func:{
+				DownLoad:1,
+				Exam:2,
+				ShowScore:3
+			},
+			nowFunc:"",
+		}
+	},
+	created(){
+		console.log("created")
+		this.nowFunc=this.$router.history.current.name
+	},
+	mounted(){
+		console.log("mounted");
+	},
+	updated(){
+	},
+	watch: {
+		$route: {
+			handler(newName, oldName) {
+				console.log('$route has changed');
+				this.nowFunc=this.$route.name;
+			},
+			deep: true
+		},
+		nowFunc(){
+			var delActive = document.querySelector("#function_content").getElementsByClassName("active")[0];
+			if (delActive != null) {
+				delActive.className = "";
+			}
+			// 实现相应功能激活
+			var nodes = document.querySelector("#function_content").getElementsByTagName("li");
+			let cid = this.func[this.nowFunc];
+			nodes[cid - 1].className = "active";
+		}
+	}
+})
 </script>
 <style scoped>
 #content {
@@ -92,8 +139,8 @@ export default {
 	width: 100%;
 	background-color: #eee;
 }
-#content_right .function{
-	margin-left: 304px;
+.function{
+	margin-left: 306px;
 	height: 599px;
 	overflow-y: scroll;
 	position: relative;

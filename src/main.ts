@@ -11,23 +11,28 @@ Vue.use(Element);
 Vue.config.productionTip = false;
 Vue.prototype.$axios=axios;
 router.beforeEach((to, from, next) =>{
-  console.log(to)
-    if(to.matched.length===0){
-      next('/404');
-    }else{
-      if(store.getters.token){
-        next();
-      }
-      else if(to.name==="Home"){
+  if(to.matched.length===0){//是否有匹配的路径
+    next({name:"notFound"});
+  }
+  let token=store.getters.token || "1111";
+  if(to.meta.validation){//是否需要登录
+    if(token) next();
+    next({name:"Home"})
+  }
+  else{
+    if(to.name==="Home"){//已经登录直接跳转用户页面
+      if(token){next({name:"User"})}
+      else{
         next()
-      }else{
-        next('/Login');
       }
+    }else{
+      next()
     }
+  }
 })
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount("#app");

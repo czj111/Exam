@@ -22,7 +22,7 @@
                 <input type="submit" value="登录" id="submit" @click="login">
             </div>
         </div>
-        <span id="close" class="" @click="close"></span>
+        <span id="close" class="el-icon-circle-close" @click="close"></span>
     </div>
 </template>
 

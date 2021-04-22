@@ -4,6 +4,9 @@ import Home from "../views/Home.vue";
 import Register from "../components/Register.vue";
 import User from "../views/User.vue";
 import NotFound from "../components/NotFound.vue";
+import DownLoad from "../components/DownLoad.vue";
+import Exam from "../components/Exam.vue";
+import showScore from "../components/showScore.vue";
 
 Vue.use(VueRouter);
 
@@ -24,9 +27,12 @@ const routes: Array<RouteConfig> = [
     component: Register,
   },
   {
-    path:"/User",
+    path:"/User/:id",
     name:"User",
-    component:User
+    component:User,
+    meta:{
+      validation:true
+    }
   },
   {
     path:"/404",
@@ -34,7 +40,7 @@ const routes: Array<RouteConfig> = [
     component:NotFound
   }
 ];
-
+ 
 const router = new VueRouter({
   routes
 });

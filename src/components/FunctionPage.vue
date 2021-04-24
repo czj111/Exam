@@ -5,7 +5,7 @@
 		<ul id="function_content">
 			<li>
 				<span class="el-icon-download" aria-hidden="true"></span>
-				<router-link to="/User/downLoad/1">试卷库</router-link>
+				<router-link to="/User/downLoad">试卷库</router-link>
 			</li>
 			<li>
 				<span class="el-icon-document"></span>

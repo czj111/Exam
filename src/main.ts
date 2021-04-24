@@ -11,12 +11,17 @@ Vue.use(Element);
 Vue.config.productionTip = false;
 Vue.prototype.$axios=axios;
 router.beforeEach((to, from, next) =>{
+  console.log(to);
+  console.log(from);
   if(to.matched.length===0){//是否有匹配的路径
     next({name:"notFound"});
   }
   let token=store.getters.token || "1111";
   if(to.meta.validation){//是否需要登录
-    if(token) next();
+    if(token) {
+      next();
+      // next('/User/downLoad/1')
+    };
     next({name:"Home"})
   }
   else{

@@ -79,6 +79,9 @@ export default Vue.extend({
         }]
       }
     },
+    watch:{
+      
+    }
 })
 </script>
 <style>

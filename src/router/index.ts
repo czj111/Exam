@@ -15,11 +15,10 @@ const routes: Array<RouteConfig> = [
     path: "/Login",
     name: "Home",
     component: Home,
-  },
-  {
+  },{
     path: "/",
-    name: "About",
-    redirect:{name:"Home"}
+    name: "toUser",
+    redirect:"/User/downLoad",
   },
   {
     path: "/Register",
@@ -27,12 +26,29 @@ const routes: Array<RouteConfig> = [
     component: Register,
   },
   {
-    path:"/User/:id",
+    path:"/User",
     name:"User",
+    redirect:{name:"DownLoad"},
     component:User,
     meta:{
       validation:true
+    },
+    children:[{
+      path:"downLoad",
+      name:"DownLoad",
+      component:DownLoad,
+      
+    },{
+      path:"exam",
+      name:"Exam",
+      component:Exam,
+    },
+    {
+      path:"showScore",
+      name:"ShowScore",
+      component:showScore,
     }
+  ]
   },
   {
     path:"/404",
@@ -44,5 +60,6 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   routes
 });
+
 
 export default router;

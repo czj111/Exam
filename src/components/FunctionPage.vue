@@ -30,7 +30,9 @@
 		</div>
 	</div>
     <div class="content_right">
-		<router-view></router-view>
+		<div class="function">
+			<router-view></router-view>
+		</div>
 	</div>
 </div>
 </template>
@@ -145,5 +147,10 @@ export default Vue.extend({
 	overflow-y: scroll;
 	position: relative;
     overflow-x: hidden;
+}
+.function::after{
+	content:'';
+	display:block;
+	clear:both
 }
 </style>

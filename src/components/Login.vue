@@ -27,9 +27,10 @@
 </template>
 
 
-<script lang="ts">
+<script>
     import Vue from "vue";
-
+    import $ from "../axios"
+    import Qs from 'qs'
     export default Vue.extend({
         name: "Login",
         props:[],
@@ -37,21 +38,36 @@
             close:function(){
                 this.$emit("closeLogin",false);
             },
-            checkEmpty:function(e:any){
+            checkEmpty:function(e){
                 let element=e.target;
                 if(isEmpty(element.value)){
                     element.className='error';
                 }
             },
-            focus:function(e:any){
+            focus:function(e){
                 let element=e.target;
                 element.className='';
             },
             login:function(){
-                let sucess=true;
-                if(sucess){
-                    this.$router.push("/User")
-                }
+                    let data=Qs.stringify({
+                    username: this.info.username,
+                    password: this.info.password,
+                    code: this.info.check
+                    });
+                
+                $.ajax.post("user/login",data,{ 
+                    headers: {
+                        'Access-Control-Allow-Origin':'*',  //解决cors头问题
+                        'Access-Control-Allow-Credentials':'true', //解决session问题
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' //将表单数据传递转化为form-data类型
+                    }}).then(res=>{
+                    if(res.code){
+                        this.$store.commit("SET_TOKEN",res.token);
+                        this.$router.push("/User/downLoad");
+                    }
+                    this.errorMsg=res.message;
+                    
+                })
             }
         },
         data(){
@@ -65,7 +81,7 @@
             }
         },
     });
-    function isEmpty(information:string){
+    function isEmpty(information){
         if(information===""){
             return true;
         }

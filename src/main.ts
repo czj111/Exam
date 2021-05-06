@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) =>{
   if(to.matched.length===0){//是否有匹配的路径
     next({name:"notFound"});
   }
-  let token=store.getters.token || "1111";
+  let token=store.getters.token;
   if(to.meta.validation){//是否需要登录
     if(token) {
       next();

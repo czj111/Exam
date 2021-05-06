@@ -2,7 +2,6 @@
   <div>
     <Head />
     <FunctionPage/>
-    <!-- <Foot /> -->
   </div>
 </template>
 <script>

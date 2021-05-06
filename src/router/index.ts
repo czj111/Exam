@@ -30,23 +30,28 @@ const routes: Array<RouteConfig> = [
     name:"User",
     redirect:{name:"DownLoad"},
     component:User,
-    meta:{
-      validation:true
-    },
     children:[{
       path:"downLoad",
       name:"DownLoad",
       component:DownLoad,
-      
+      meta:{
+        validation:true
+      }
     },{
       path:"exam",
       name:"Exam",
       component:Exam,
+      meta:{
+        validation:true
+      }
     },
     {
       path:"showScore",
       name:"ShowScore",
       component:showScore,
+      meta:{
+        validation:true
+      }
     }
   ]
   },

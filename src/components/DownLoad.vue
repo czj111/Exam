@@ -1,19 +1,18 @@
 <template>
-    <div class="function">
-        <input id="search" placeholder="请输入搜索内容">
-        <span id="btnSearch" class="el-icon-search"></span>
+    <div>
+        <input id="search" placeholder="请输入搜索内容" v-model="msg">
+        <span id="btnSearch" class="el-icon-search" @click="handleFind"></span>
         <el-table :data="tableData" style="width: 900px" class="loadFile" :stripe="stripe">
-            <el-table-column label="文件名" width="200">
+            <el-table-column label="时间" width="200">
                 <template slot-scope="scope">
                     <i class="el-icon-time"></i>
                     <span style="margin-left: 10px">{{ scope.row.date }}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="姓名" width="180">
+            <el-table-column label="文件名" width="180">
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
-                        <p>姓名: {{ scope.row.name }}</p>
-                        <p>住址: {{ scope.row.address }}</p>
+                        <p>文件名: {{ scope.row.name }}</p>
                         <div slot="reference" class="name-wrapper">
                             <el-tag size="medium">{{ scope.row.name }}</el-tag>
                         </div>
@@ -22,7 +21,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="primary" @click="handleDelete(scope.$index, scope.row)" size="mini">下载<i class="el-icon-download el-icon--right"></i></el-button>
+                    <el-button type="primary" @click="handleDownLoad(scope.$index, scope.row)" size="mini">下载<i class="el-icon-download el-icon--right"></i></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -36,51 +35,53 @@
                             :total="total">
             </el-pagination>
         </div>
-        <!--测试数据-->
-        <!--<a href='javascript:void(0)' onclick="downLoad('李四1231587398725615报名表.docx')">下载</a>-->
     </div>
 </template>
 <script>
-import Vue from "vue"
+import Vue from "vue";
+import $ from "../axios"
+function getFiles(currentPage=0,pageSize=5,msg=""){
+  $.ajax.get("all/files",{
+        params:{
+          currentPage:currentPage,
+          pageSize:pageSize,
+          msg,
+        }
+      }).then(res=>{
+        let paging=res.paging;
+        this.currentPage=parseInt(paging.currentPage);
+        this.total=paging.countItems;
+        this.tableData=paging.pages;
+      })
+}
 export default Vue.extend({
     methods: {
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+        getFiles.call(this,val,this.pageSize);
         console.log(`当前页: ${val}`);
       },
-      handleDelete(index, row) {
+      handleDownLoad(index, row) {
         console.log(index, row);
+      },
+      handleFind(){
+        getFiles.call(this,0,this.pageSize,this.msg);
       }
     },
     data() {
       return {
         currentPage: 5,
-        pageSize:10,
+        pageSize:5,
         total:100,
         stripe:true,
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        tableData: [],
+        msg:'',
       }
     },
-    watch:{
-      
+    mounted(){
+      getFiles.call(this,1,this.pageSize);
     }
 })
 </script>

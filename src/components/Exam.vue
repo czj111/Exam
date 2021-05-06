@@ -1,28 +1,105 @@
 <template>
-    <div class="function">
-        <span class="project">考试项目</span>
-        <select id="chooseProblem">
-        </select>
-        <button id="chooseProblemBtn">开始测试</button>
-    </div>
+<div class="project">
+  <el-select v-model="value" filterable placeholder="请选择" v-on:change="handleChoose">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
+	<div class="choose-item">
+	<span> 调整难度系数：</span>
+	<span title="请点击选择分数" class="star-all star-3" @mousemove="handleStart($event)" :style="star"></span>
+	</div>
+	<div class="choose-item">
+	<span> 选择单次题目数量：</span>
+	<el-radio v-model="radio" label="1">5题</el-radio>
+	<el-radio v-model="radio" label="2">10题</el-radio>
+	<el-radio v-model="radio" label="3">15题</el-radio>
+	<el-radio v-model="radio" label="4">20题</el-radio>
+	</div>
+	<el-button type="primary" :disabled="start" @click="startExam">开始测试</el-button>
+</div>
 </template>
 <script>
+import $ from "../axios" 
 export default {
-    
+    data() {
+      return {
+        options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value: '',
+		radio:'1',
+		start:true,
+		difficult:1,
+		star:{
+			"--bkgPos":"0 -54px"
+		}
+      }
+    },
+	methods:{
+		handleChoose(){//是否选择考试项目
+			if(this.start) this.start=false;
+		},
+		handleStart(e){//选择困难程度
+			this.difficult=Math.ceil(e.offsetX/23);
+			this.difficult=this.difficult ? this.difficult:1;
+			this.star["--bkgPos"]=`0 ${-54*this.difficult}px`;
+		},
+		startExam(){
+			$.ajax.get("user/exam",{
+				params:{
+					examId:this.value,
+					questionCount:parseInt(this.radio)*5,
+					difficulty:this.difficult
+				}
+			})
+		}
+	}
 }
 </script>
 <style>
-.function .project {
-	position: absolute;
-	left: 87px;
+.project {
+	position:absolute;
+	left: 260px;
 	top: 104px;
-	width: 144px;
-	height: 54px;
+	width: 100%;
 	color: rgba(49, 50, 53, 1);
-	font-size: 36px;
+	font-size: 20px;
 	text-align: left;
 	font-family: SourceHanSansSC-regular;
 
+}
+.star-all {
+	display: inline-block;
+    vertical-align: middle;
+    width: 115px;
+    height: 17px;
+	background:url("../assets/stars.png"),no-repeat;
+}
+.star-all:hover{
+	cursor:pointer;
+}
+.star-3 {
+	background-position: var(--bkgPos);
+}
+.choose-item {
+	margin:10px 0;
 }
 #chooseProblem {
 	position: absolute;
@@ -53,31 +130,6 @@ export default {
 	text-align: center;
 	font-family: SourceHanSansSC-bold;
 	border: 1px solid rgba(187, 187, 187, 1);
-}
-.function {
-	font-size: 36px;
-}
-.function .single , .function .multiply{
-	margin: 11px 0 0 9px;
-}
-.function .subject-content .subject-question {
-	width: 943px;
-	word-break: break-all;
-	margin-left: 36px;
-}
-.function .subject-content .subject-options {
-	margin-left: 94px;
-}
-.function .subject-content .subject-options .control-content{
-	width: 700px;
-	display: inline-block;
-	word-break: break-all;
-	vertical-align:top;
-}
-.function .subject-content .subject-options input {
-	width: 20px;
-	height: 20px;
-	vertical-align: 4px;
 }
 #examBtn {
 	width: 278px;
